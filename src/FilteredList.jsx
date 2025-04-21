@@ -6,37 +6,57 @@ class FilteredList extends Component {
   constructor(props) {
     super(props);
 
-    //The state is just a list of key/value pairs (like a hashmap)
-    //TODO (FilteredList): Add an additional state variable within this.state called "type" and set it to a default value
+    // Add "type" to the state to store the filter category (Fruit, Vegetables, or All)
     this.state = {
-      search: ""
+      search: "",
+      type: "All"  // Default filter value
     };
   }
 
-  //Sets the state whenever the user types on the search bar
+  // Sets the search state whenever the user types in the search bar
   onSearch = (event) => {
-    this.setState({search: event.target.value.trim().toLowerCase()});
-  }
+    this.setState({ search: event.target.value.trim().toLowerCase() });
+  };
 
-  //TODO (FilteredList): Set the state of the "type" state variable depending on what is passed in
-  onFilter = (event) => {
+  // Sets the "type" state variable depending on the selected filter from the dropdown
+  onFilter = (selectedType) => {
+    this.setState({ type: selectedType });
+  };
 
-  }
-
-  //TODO (FilteredList): Change filterItem to take into account the "type" state variable when filtering
+  // Filters items based on the search term and selected type
   filterItem = (item) => {
-      return item.name.toLowerCase().search(this.state.search) !== -1;
-  }
+    const { search, type } = this.state;
+    const matchesSearch = item.name.toLowerCase().includes(search);
+    const matchesType = type === "All" || item.type === type;
 
-  render(){
+    return matchesSearch && matchesType;
+  };
+
+  render() {
     return (
-        <div className = "filter-list">
-         
-          /*TODO (FilteredList): Create a Dropdown Menu with three different menu options: Fruit, Vegetables, and All*/
-          
-          <input type = "text" placeholder = "Search" onChange = {this.onSearch} />
-          <List items = {this.props.items.filter(this.filterItem)} />
-        </div>
+      <div className="filter-list">
+        
+        {/* Dropdown Button to filter by Fruit, Vegetables, or All */}
+        <DropdownButton
+          title={this.state.type}
+          id="filter-dropdown"
+          onSelect={this.onFilter}
+        >
+          <MenuItem eventKey="Fruit">Fruit</MenuItem>
+          <MenuItem eventKey="Vegetable">Vegetable</MenuItem>
+          <MenuItem eventKey="All">All</MenuItem>
+        </DropdownButton>
+
+        {/* Search input */}
+        <input
+          type="text"
+          placeholder="Search"
+          onChange={this.onSearch}
+        />
+
+        {/* Pass the filtered items to the List component */}
+        <List items={this.props.items.filter(this.filterItem)} />
+      </div>
     );
   }
 }
