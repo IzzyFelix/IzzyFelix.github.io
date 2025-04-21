@@ -1,25 +1,23 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import HelloWorld from './HelloWorld';
+import Counter from './Counter';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+//TODO (FilteredList): create a produce list using the 'const' variable keyword
+
+class App extends Component {
+    render() {
+        return (
+
+			<div className="App">
+                /*TODO (HelloWorld): create an instance of the HelloWorld Component*/
+
+                /*TODO (Counter): create an instance of the Counter Component*/
+
+            	/*TODO (FilteredList): create an instance of the FilteredList Component with a variable named items that takes in your produce list*/
+            </div>
+        );
+    }
 }
 
 export default App;
